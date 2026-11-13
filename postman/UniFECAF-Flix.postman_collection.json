@@ -1,0 +1,309 @@
+{
+  "info": {
+    "name": "UniFECAF Flix API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Listar todos os filmes",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Retorna lista\", () => pm.expect(pm.response.json().filmes).to.be.an(\"array\").that.is.not.empty);"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/v1/controle-filmes/filme",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "controle-filmes",
+            "filme"
+          ]
+        }
+      }
+    },
+    {
+      "name": "2. Buscar filme por ID (2)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              "pm.test(\"Nome é Matrix\", () => pm.expect(pm.response.json().filme.nome).to.eql(\"Matrix\"));"
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/v1/controle-filmes/filme/2",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "controle-filmes",
+            "filme",
+            "2"
+          ]
+        }
+      }
+    },
+    {
+      "name": "3. Buscar filme por ID inexistente (999)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 404\", () => pm.response.to.have.status(404));",
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/v1/controle-filmes/filme/999",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "controle-filmes",
+            "filme",
+            "999"
+          ]
+        }
+      }
+    },
+    {
+      "name": "4. Buscar filme com ID inválido (abc)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/v1/controle-filmes/filme/abc",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "controle-filmes",
+            "filme",
+            "abc"
+          ]
+        }
+      }
+    },
+    {
+      "name": "5. Filtrar por nome (matrix)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/v1/controle-filmes/filtro/filme?nome=matrix",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "controle-filmes",
+            "filtro",
+            "filme"
+          ],
+          "query": [
+            {
+              "key": "nome",
+              "value": "matrix"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "6. Filtrar pela sinopse (sonhos)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 200\", () => pm.response.to.have.status(200));",
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/v1/controle-filmes/filtro/filme?nome=sonhos",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "controle-filmes",
+            "filtro",
+            "filme"
+          ],
+          "query": [
+            {
+              "key": "nome",
+              "value": "sonhos"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "7. Filtrar sem parâmetro nome",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 400\", () => pm.response.to.have.status(400));",
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/v1/controle-filmes/filtro/filme",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "controle-filmes",
+            "filtro",
+            "filme"
+          ]
+        }
+      }
+    },
+    {
+      "name": "8. Filtrar sem resultado (zzzz)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 404\", () => pm.response.to.have.status(404));",
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/v1/controle-filmes/filtro/filme?nome=zzzz",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "controle-filmes",
+            "filtro",
+            "filme"
+          ],
+          "query": [
+            {
+              "key": "nome",
+              "value": "zzzz"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "9. Rota inexistente",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "pm.test(\"Status 404\", () => pm.response.to.have.status(404));",
+              ""
+            ]
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/v1/controle-filmes/inexistente",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "v1",
+            "controle-filmes",
+            "inexistente"
+          ]
+        }
+      }
+    }
+  ]
+}
